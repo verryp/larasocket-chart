@@ -8,6 +8,17 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import CxltToastr from 'cxlt-vue2-toastr'
+
+const toastrConfigs = {
+    position: 'top right',
+    showDuration: 2000,
+    timeOut: 5000,
+    progressBar: true
+}
+
+Vue.use(CxltToastr, toastrConfigs)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

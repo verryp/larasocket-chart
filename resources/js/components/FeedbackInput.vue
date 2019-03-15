@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="status != 'success'">
+    <div>
       <div class="row mt-5">
         <div class="col-md-8 offset-md-2 text-center">
           <h1>Sebutkan 3 nama yang anda idolakan/idamkan di tahun {{ (new Date()).getFullYear() }}</h1>
@@ -25,20 +25,17 @@
 
           <br>
 
-          <div v-if="status == 'error'" class="alert alert-danger">{{message}}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-5" v-if="status == 'success'">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="alert alert-success">{{message}}</div>
+          <div v-if="status == 'success'" class="alert alert-success">
+            Dashboard =>
+            <a style="color:red" :href="url" target="_blank">Hasilnya cek disini!</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style src="cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css"></style>
 
 <script>
 import axios from "axios";
@@ -48,7 +45,8 @@ export default {
     return {
       feedback: "",
       status: "idle", // idle | submiiting | error | success
-      message: ""
+      message: "",
+      url: "http://larasocket-chart.test/feedback/dashboard"
     };
   },
 
@@ -62,15 +60,24 @@ export default {
         })
         .then(response => {
           this.$data.status = "success";
-          this.$data.message = "Go Sanka Arigatōgozaimashita!";
+          this.$toast.success({
+            title: "Success",
+            message: "Go Sanka Arigatōgozaimashita!"
+          });
         })
         .catch(error => {
           this.$data.status = "error";
 
           if (error.response.data.message) {
-            this.$data.message = error.response.data.response;
+            this.$toast.error({
+              title: "Error",
+              message: error.response.data.message
+            });
           } else {
-            this.$data.message = "terjadi error saat menyimpan data";
+            this.$toast.error({
+              title: "Error",
+              message: "terjadi error saat menyimpan data"
+            });
           }
         });
     }

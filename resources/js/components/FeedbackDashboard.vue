@@ -14,7 +14,7 @@
       <div class="col-md-5 offset-md-2">
         <pie-chart :chart-data="piechartData"/>
       </div>
-      <div class="col-md-5 text-left">
+      <!-- <div class="col-md-5 text-left">
         <ul style="list-style: none; padding:2">
           <li v-for="(item, index) in data" :key="index">
             <h1 v-if="index==0">
@@ -38,7 +38,7 @@
             </h4>
           </li>
         </ul>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
