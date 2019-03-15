@@ -59,6 +59,9 @@ class FeedbackController extends Controller
             $this->createOrIncrement($word);
         }
 
+        $data = json_decode($this->getTopTen());
+        broadcast(new FeedbackReceived($data));
+
         return response()->json([
             'status' => $status,
             'message' => $message,
