@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="app">
-        <feedback-dashbaord/>
+        <feedback-dashboard/>
     </div>
 
     <script src="/js/app.js"></script>

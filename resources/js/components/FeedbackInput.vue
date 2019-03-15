@@ -3,16 +3,16 @@
     <div v-if="status != 'success'">
       <div class="row mt-5">
         <div class="col-md-8 offset-md-2 text-center">
-          <h1>Gambarkan dengan 3 kata, Bagaimana Visi anda terhadap BPN pada tahun {{ (new Date()).getFullYear() }}</h1>
+          <h1>Sebutkan 3 nama yang anda idolakan/idamkan di tahun {{ (new Date()).getFullYear() }}</h1>
         </div>
       </div>
 
       <div class="row mt-5">
-        <div class="col-md-6">
+        <div class="col-md-6 offset-md-3">
           <input
             type="text"
             class="form-control form-control-lg"
-            placeholder="contoh: keren top mantab"
+            placeholder="contoh: jerome makbeti atta"
             :value="feedback"
             @input="feedback = $event.target.value"
           >
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -52,23 +54,23 @@ export default {
 
   methods: {
     submit() {
-      this.status = "submitting";
+      this.$data.status = "submitting";
 
-      this.axios
+      axios
         .post("/api/feedback", {
-          words: this.feedback
+          words: this.$data.feedback
         })
         .then(response => {
-          this.status = "success";
-          this.message = "Go Sanka Arigatōgozaimashita!";
+          this.$data.status = "success";
+          this.$data.message = "Go Sanka Arigatōgozaimashita!";
         })
         .catch(error => {
-          this.status = "error";
+          this.$data.status = "error";
 
           if (error.response.data.message) {
-            this.message = error.response.data.response;
+            this.$data.message = error.response.data.response;
           } else {
-            this.message = "terjadi error saat menyimpan data";
+            this.$data.message = "terjadi error saat menyimpan data";
           }
         });
     }
