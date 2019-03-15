@@ -8,6 +8,14 @@ use App\Events\FeedbackReceived;
 
 class FeedbackController extends Controller
 {
+    public function index() {
+        return view('dashboard');
+    }
+
+    public function create() {
+        return view('input');
+    }
+
     protected function createOrIncrement(String $word) {
         $word = strtolower($word);
 
@@ -67,10 +75,6 @@ class FeedbackController extends Controller
             'message' => $message,
             'data' => $data,
         ], $status_code);
-    }
-
-    public function dashboard() {
-        return view('dashboard');
     }
 
     public function dashboardData() {
