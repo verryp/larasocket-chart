@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="row mt-5">
-      <div class="col-md-12">
-        <h1 class="text-center">Top Ten Word
+      <div style="position-text:align-center" class="col-md-12">
+        <h1>Top Ten
           <br>
-          <small>Data akan direset database sudah penuh</small>
+          <small style="font-size: 14px;">NB: Jika database penuh, data akan direset</small>
         </h1>
         <hr>
       </div>
@@ -15,8 +15,8 @@
         <pie-chart :chart-data="piechartData"/>
       </div>
       <div class="col-md-5 text-left">
-        <ul style="list-style: none; padding:0">
-          <li v-for="(item, index) in feedbacks" :key="index">
+        <ul style="list-style: none; padding:2">
+          <li v-for="(item, index) in data" :key="index">
             <h1 v-if="index==0">
               {{item.word.toUpperCase()}}
               ({{item.count}})
@@ -62,7 +62,7 @@ export default {
         datasets: [
           {
             data: this.$data.data.map(a => a.count),
-            backgroundColor: pallette(
+            backgroundColor: palette(
               ["qualitative"],
               this.$data.data.length
             ).map(function(hex) {
@@ -84,9 +84,9 @@ export default {
   methods: {
     fetchInitialData() {
       axios
-        .get("api/feedback/data")
+        .get("/api/feedback/data")
         .then(res => {
-          this.$data.data = response.data;
+          this.$data.data = res.data;
           this.$data.status = "success";
         })
         .catch(err => {

@@ -1863,7 +1863,7 @@ __webpack_require__.r(__webpack_exports__);
           data: this.$data.data.map(function (a) {
             return a.count;
           }),
-          backgroundColor: pallette(["qualitative"], this.$data.data.length).map(function (hex) {
+          backgroundColor: google_palette__WEBPACK_IMPORTED_MODULE_1___default()(["qualitative"], this.$data.data.length).map(function (hex) {
             return "#" + hex;
           })
         }],
@@ -1881,8 +1881,8 @@ __webpack_require__.r(__webpack_exports__);
     fetchInitialData: function fetchInitialData() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/feedback/data").then(function (res) {
-        _this.$data.data = response.data;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/feedback/data").then(function (res) {
+        _this.$data.data = res.data;
         _this.$data.status = "success";
       }).catch(function (err) {
         _this.$data.status = "error";
@@ -81352,8 +81352,8 @@ var render = function() {
       _c("div", { staticClass: "col-md-5 text-left" }, [
         _c(
           "ul",
-          { staticStyle: { "list-style": "none", padding: "0" } },
-          _vm._l(_vm.feedbacks, function(item, index) {
+          { staticStyle: { "list-style": "none", padding: "2" } },
+          _vm._l(_vm.data, function(item, index) {
             return _c("li", { key: index }, [
               index == 0
                 ? _c("h1", [
@@ -81416,16 +81416,25 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mt-5" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("h1", { staticClass: "text-center" }, [
-          _vm._v("Top Ten Word\n        "),
-          _c("br"),
+      _c(
+        "div",
+        {
+          staticClass: "col-md-12",
+          staticStyle: { "position-text": "align-center" }
+        },
+        [
+          _c("h1", [
+            _vm._v("Top Ten\n        "),
+            _c("br"),
+            _vm._v(" "),
+            _c("small", { staticStyle: { "font-size": "14px" } }, [
+              _vm._v("NB: Jika database penuh, data akan direset")
+            ])
+          ]),
           _vm._v(" "),
-          _c("small", [_vm._v("Data akan direset database sudah penuh")])
-        ]),
-        _vm._v(" "),
-        _c("hr")
-      ])
+          _c("hr")
+        ]
+      )
     ])
   }
 ]
@@ -93773,13 +93782,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "larasocket-chart",
-  cluster: "mt1",
+  key: "2090709276513dd0004a",
+  // cluster: "env('PUSHER_APP_CLUSTER')",
   encrypted: false,
   wsHost: window.location.hostname,
   wsPort: 6001,
   disableStats: true
-});
+}); // Echo.channel('larasocket-chart').listen('FeedbackReceived', function (e) {
+//     alert(e.message);
+// })
 
 /***/ }),
 

@@ -10,9 +10,11 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class FeedbackReceived
+class FeedbackReceived implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    protected $payload = [];
 
     /**
      * Create a new event instance.
@@ -36,6 +38,6 @@ class FeedbackReceived
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('larasocket-chart');
+        return new Channel('larasocket-chart');
     }
 }

@@ -12,15 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('feedback/input');
 });
 
 Route::group(['prefix' => 'api'], function () {
     Route::post('feedback', 'FeedbackController@store');
+    Route::get('feedback/data', 'FeedbackController@dashboardData');
 });
 
 Route::get('feedback/input', 'FeedbackController@create');
 
 Route::get('feedback/dashboard', 'FeedbackController@index');
-
-Route::get('feedback/data', 'FeedbackController@dashboardData');

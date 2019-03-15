@@ -49,10 +49,14 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    key: "2090709276513dd0004a",
+    // cluster: "env('PUSHER_APP_CLUSTER')",
     encrypted: false,
     wsHost: window.location.hostname,
     wsPort: 6001,
     disableStats: true
 });
+
+// Echo.channel('larasocket-chart').listen('FeedbackReceived', function (e) {
+//     alert(e.message);
+// })

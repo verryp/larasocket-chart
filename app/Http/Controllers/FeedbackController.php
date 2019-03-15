@@ -17,6 +17,7 @@ class FeedbackController extends Controller
     }
 
     protected function createOrIncrement(String $word) {
+        // ? convert ke lower case
         $word = strtolower($word);
 
         $feedback = Feedback::where('word', $word)->first();
@@ -39,18 +40,14 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        $data = null;
-        $message = 'data berhasil ditambahkan';
-        $status = 'success';
-        $status_code = 500;
 
         $words = $request->get('words');
 
         // ? tidak boleh menggunakan tanda koma
         if(strpos($words, ',') !== false) {
-            $message = 'Kata tidak boleh mengandung tanda koma';
-            $status = 'error';
-            $status_code = 400;
+            return response()->json([
+                'message' => 'Kata tidak boleh mengandung tanda koma'
+            ], 400);
         }
 
         // ? Memisahkan spasi
@@ -58,9 +55,9 @@ class FeedbackController extends Controller
 
         // ? cek kata lebih dari 3
         if(count($words) > 3) {
-            $message = 'kata tidak boleh lebih dari 3';
-            $status = 'error';
-            $status_code = 400;
+            return response()->json([
+                'message' => 'kata tidak boleh lebih dari 3'
+            ], 400);
         }
 
         foreach($words as $word) {
@@ -70,11 +67,7 @@ class FeedbackController extends Controller
         $data = json_decode($this->getTopTen());
         broadcast(new FeedbackReceived($data));
 
-        return response()->json([
-            'status' => $status,
-            'message' => $message,
-            'data' => $data,
-        ], $status_code);
+        return response()->json('success');
     }
 
     public function dashboardData() {
